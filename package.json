@@ -1,0 +1,20 @@
+{
+  "name": "M2G/pubsub",
+  "version": "0.0.1",
+  "description": "Simple pubsub implementation using JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "js": "browserify index.js -s Pubsub -o dist/main.js",
+    "build": "npm run js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:M2G/pubsub.git"
+  },
+  "author": "M2G",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^16.2.3"
+  }
+}
