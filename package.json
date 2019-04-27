@@ -1,20 +1,29 @@
 {
-  "name": "M2G/pubsub",
-  "version": "0.0.1",
+  "name": "@m2g/pubsub",
+  "version": "0.0.2",
   "description": "Simple pubsub implementation using JavaScript",
-  "main": "index.js",
+  "main": "./dist/js/index.js",
   "scripts": {
-    "prepublish": "npm run build",
-    "js": "browserify index.js -s Pubsub -o dist/main.js",
-    "build": "npm run js"
+    "build": "babel src/js --presets @babel/preset-env --out-dir dist/js --source-maps",
+    "prepublishOnly": "npm run build"
   },
+  "keywords": [
+    "pub/sub",
+    "pubsub",
+    "publish/subscribe",
+    "publish",
+    "subscribe"
+  ],
+  "author": "M2G",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:M2G/pubsub.git"
   },
-  "author": "M2G",
-  "license": "MIT",
+  "homepage": "https://github.com/M2G/pubsub#readme",
   "devDependencies": {
-    "browserify": "^16.2.3"
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3"
   }
 }
