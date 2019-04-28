@@ -4,8 +4,9 @@
   "description": "Simple pubsub implementation using JavaScript",
   "main": "./dist/js/index.js",
   "scripts": {
+    "lint": "eslint src/js ; exit 0",
     "build": "babel src/js --presets airbnb --out-dir dist/js --source-maps",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
     "pub/sub",
@@ -22,11 +23,12 @@
   },
   "homepage": "https://github.com/M2G/pubsub#readme",
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "babel-eslint": "^10.0.1",
     "babel-preset-airbnb": "^3.2.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.1"
+    "eslint-plugin-import": "^2.17.2"
   }
 }
