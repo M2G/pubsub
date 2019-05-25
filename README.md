@@ -17,8 +17,10 @@ pubsub.publish('info', {
 ## API
 
 ### `pubsub.subscribe(eventName, listener([data]))`
+### `pubsub.subscribeOnce(eventName, listener([data]))`
 ### `pubsub.publish(eventName, listener([data]))`
 ### `pubsub.unsubscribe(eventName, listener)`
+### `pubsub.unsubscribes()`
 
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)

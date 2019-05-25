@@ -14,7 +14,10 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 /**
- * Simple pubsub implementation using JavaScript
+ * Pubsub is simple pubsub implementation using JavaScript
+ * @class
+ * @constructor
+ * @public
  */
 var PubSub =
 /*#__PURE__*/
@@ -22,12 +25,17 @@ function () {
   function PubSub() {
     _classCallCheck(this, PubSub);
 
+    /**
+     *  Init object events
+     * @type {Object}
+     */
     this.events = {};
   }
   /**
-   * @param {string} event
-   * @param {function} callback
-   * @memberof PubSub
+   * Listen to an event.
+   *
+   * @param {string} event - event names to bind to
+   * @param {function} callback - action that will be executed when even is fired.
    */
 
 
@@ -57,9 +65,28 @@ function () {
       this.events[event].listeners.push(callback);
     }
     /**
-     * @param {string} event
-     * @param {function} callback
-     * @memberof PubSub
+     * Attach a callback to an name, but once only. Will disapear after first execution.
+     *
+     * @param {string} event - event names to bind to
+     * @param {Function} callback - Action that will be executed when even is fired.
+     * @see https://gist.github.com/jashmenn/b306add36d3e6f0f6483
+     */
+
+  }, {
+    key: "subscribeOnce",
+    value: function subscribeOnce(event, callback) {
+      var onceCallback = function () {
+        this.unsubscribe(event, onceCallback);
+        callback.apply(this, arguments);
+      }.bind(this);
+
+      this.subscribe(event, onceCallback);
+    }
+    /**
+     * Remove a specific listener to an event.
+     *
+     * @param {string} event - event names to bind to
+     * @param {function} callback - Action that will be executed when even is fired.
      */
 
   }, {
@@ -76,9 +103,19 @@ function () {
       });
     }
     /**
-     * @param {string} event
-     * @param {object} [data={}]
-     * @memberof PubSub
+     * Removes all the subscriptions
+     */
+
+  }, {
+    key: "unsubscribes",
+    value: function unsubscribes() {
+      this.events = {};
+    }
+    /**
+     * Notify subscriptions by calling their name
+     *
+     * @param {string} event - event to fire
+     * @param {object} [data={}] - params to distribute to the callbacks
      */
 
   }, {

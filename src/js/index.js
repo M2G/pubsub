@@ -1,16 +1,23 @@
 /**
- * Simple pubsub implementation using JavaScript
+ * Pubsub is simple pubsub implementation using JavaScript
+ * @class
+ * @constructor
+ * @public
  */
-
 class PubSub {
   constructor() {
+    /**
+     *  Init object events
+     * @type {Object}
+     */
     this.events = {};
   }
 
   /**
-   * @param {string} event
-   * @param {function} callback
-   * @memberof PubSub
+   * Listen to an event.
+   *
+   * @param {string} event - event names to bind to
+   * @param {function} callback - action that will be executed when even is fired.
    */
   subscribe(event, callback) {
     // Check if the callback is not a function
@@ -36,9 +43,26 @@ class PubSub {
   }
 
   /**
-   * @param {string} event
-   * @param {function} callback
-   * @memberof PubSub
+   * Attach a callback to an name, but once only. Will disapear after first execution.
+   *
+   * @param {string} event - event names to bind to
+   * @param {Function} callback - Action that will be executed when even is fired.
+   * @see https://gist.github.com/jashmenn/b306add36d3e6f0f6483
+   */
+  subscribeOnce(event, callback) {
+    const onceCallback = (function () {
+      this.unsubscribe(event, onceCallback);
+      callback.apply(this, arguments);
+    }).bind(this);
+
+    this.subscribe(event, onceCallback);
+  }
+
+  /**
+   * Remove a specific listener to an event.
+   *
+   * @param {string} event - event names to bind to
+   * @param {function} callback - Action that will be executed when even is fired.
    */
   unsubscribe(event, callback) {
     // Check if this event not exists
@@ -51,9 +75,17 @@ class PubSub {
   }
 
   /**
-   * @param {string} event
-   * @param {object} [data={}]
-   * @memberof PubSub
+   * Removes all the subscriptions
+   */
+  unsubscribes() {
+    this.events = {};
+  }
+
+  /**
+   * Notify subscriptions by calling their name
+   *
+   * @param {string} event - event to fire
+   * @param {object} [data={}] - params to distribute to the callbacks
    */
   publish(event, data = {}) {
     // Check if this event not exists
