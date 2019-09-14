@@ -50,7 +50,7 @@ class PubSub {
    * @see https://gist.github.com/jashmenn/b306add36d3e6f0f6483
    */
   subscribeOnce(event, callback) {
-    const onceCallback = (function () {
+    const onceCallback = (function() {
       this.unsubscribe(event, onceCallback);
       callback.apply(this, arguments);
     }).bind(this);
@@ -71,7 +71,13 @@ class PubSub {
       return false;
     }
 
-    this.events[event].listeners = this.events[event].listeners.filter(listener => listener.toString() !== callback.toString());
+    const filteredSubscribtion = [];
+    for (let i = 0; i < this.events[event].listeners.length; i += 1) {
+      if (this.events[event].listeners[i].toString() !== callback.toString()) {
+        filteredSubscribtion.push(this.events[event].listeners[i]);
+      }
+    }
+    this.events[event].listeners = filteredSubscribtion;
   }
 
   /**
@@ -94,7 +100,9 @@ class PubSub {
       return false;
     }
     // Get each subscription and call its callback with the passed data
-    this.events[event].listeners.forEach(listener => listener(data));
+    for (let i = 0; i < this.events[event].listeners.length; i += 1) {
+      this.events[event].listeners[i](data);
+    }
   }
 }
 
