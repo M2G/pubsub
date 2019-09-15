@@ -16,7 +16,7 @@ pubsub.publish('info', {
 });
 ```
 
-## API
+## METHODS
 
 ### `pubsub.subscribe(eventName, listener([data]))`
 ### `pubsub.subscribeOnce(eventName, listener([data]))`
