@@ -1,17 +1,17 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
 /**
  * Pubsub is simple pubsub implementation using JavaScript
@@ -23,7 +23,7 @@ var PubSub =
 /*#__PURE__*/
 function () {
   function PubSub() {
-    _classCallCheck(this, PubSub);
+    (0, _classCallCheck2["default"])(this, PubSub);
 
     /**
      *  Init object events
@@ -39,18 +39,18 @@ function () {
    */
 
 
-  _createClass(PubSub, [{
+  (0, _createClass2["default"])(PubSub, [{
     key: "subscribe",
     value: function subscribe(event, callback) {
       // Check if the callback is not a function
       if (typeof callback !== 'function') {
-        console.error("The listener callback must be a function, the given type is ".concat(_typeof(callback)));
+        console.error("The listener callback must be a function, the given type is ".concat((0, _typeof2["default"])(callback)));
         return false;
       } // Check if the event is not a string
 
 
       if (typeof event !== 'string') {
-        console.error("The event name must be a string, the given type is ".concat(_typeof(event)));
+        console.error("The event name must be a string, the given type is ".concat((0, _typeof2["default"])(event)));
         return false;
       } // Check if this event not exists
 
@@ -98,9 +98,15 @@ function () {
         return false;
       }
 
-      this.events[event].listeners = this.events[event].listeners.filter(function (listener) {
-        return listener.toString() !== callback.toString();
-      });
+      var filteredSubscribtion = [];
+
+      for (var i = 0; i < this.events[event].listeners.length; i += 1) {
+        if (this.events[event].listeners[i].toString() !== callback.toString()) {
+          filteredSubscribtion.push(this.events[event].listeners[i]);
+        }
+      }
+
+      this.events[event].listeners = filteredSubscribtion;
     }
     /**
      * Removes all the subscriptions
@@ -130,12 +136,11 @@ function () {
       } // Get each subscription and call its callback with the passed data
 
 
-      this.events[event].listeners.forEach(function (listener) {
-        return listener(data);
-      });
+      for (var i = 0; i < this.events[event].listeners.length; i += 1) {
+        this.events[event].listeners[i](data);
+      }
     }
   }]);
-
   return PubSub;
 }();
 

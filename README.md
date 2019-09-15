@@ -2,15 +2,17 @@
 
 ## Usage
 ```js
+import PubSub from '@m2g/pubsub';
+
 const pubsub = new PubSub();
 
 pubsub.subscribe('info', (data) => {
-    console.log(data);
+  console.log(data);
 });
 
 pubsub.publish('info', {
-    name: 'foo',
-    password: 'bar'
+  name: 'foo',
+  password: 'bar'
 });
 ```
 
