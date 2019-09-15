@@ -1,6 +1,6 @@
 {
   "name": "@m2g/pubsub",
-  "version": "0.0.4-rc.1",
+  "version": "0.0.5",
   "description": "Simple pubsub implementation using JavaScript",
   "main": "./dist/js/index.js",
   "scripts": {
