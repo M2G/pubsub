@@ -72,9 +72,11 @@ class PubSub {
     }
 
     const filteredSubscribtion = [];
-    for (let i = 0; i < this.events[event].listeners.length; i += 1) {
-      if (this.events[event].listeners[i].toString() !== callback.toString()) {
-        filteredSubscribtion.push(this.events[event].listeners[i]);
+    if (this.events?.[event]?.listeners?.length) {
+      for (let i = 0; i < this.events[event].listeners.length; i += 1) {
+        if (this.events[event].listeners[i].toString() !== callback.toString()) {
+          filteredSubscribtion.push(this.events[event].listeners[i]);
+        }
       }
     }
     this.events[event].listeners = filteredSubscribtion;
@@ -100,8 +102,10 @@ class PubSub {
       return false;
     }
     // Get each subscription and call its callback with the passed data
-    for (let i = 0; i < this.events[event].listeners.length; i += 1) {
-      this.events[event].listeners[i](data);
+    if (this.events?.[event]?.listeners?.length) {
+      for (let i = 0; i < this.events[event].listeners.length; i += 1) {
+        this.events[event].listeners[i](data);
+      }
     }
   }
 }
